@@ -38,18 +38,17 @@ let solvePart2 (filePath: string) (delimiter: string) =
             freq.Add(rightSideKey, 1)
 
     firstList.Sort()
-    let mutable leftSideSum = 0
 
-    for number in firstList do
-        leftSideSum <-
-            leftSideSum
-            + number
-              * if freq.ContainsKey(number) then
-                    freq.[number]
-                else
-                    0
-
-    leftSideSum
+    Seq.fold
+        (fun sum x ->
+            sum
+            + (x
+               * if freq.ContainsKey(x) then
+                     freq.[x]
+                 else
+                     0))
+        0
+        firstList
 
 
 let testPath = "./test.txt"
