@@ -14,18 +14,10 @@ let solvePart1 (filePath: string) (delimiter: string) =
 
     firstList.Sort()
     secondList.Sort()
-    let mutable diffs: int32 = 0
 
-    for i in 0 .. firstList.Count - 1 do
-        let diff =
-            if firstList[i] >= secondList[i] then
-                firstList[i] - secondList[i]
-            else
-                secondList[i] - firstList[i]
-
-        diffs <- diffs + diff
-
-    diffs
+    Seq.zip firstList secondList
+    |> ResizeArray
+    |> Seq.fold (fun sum (first, second) -> (sum + abs (second - first))) 0
 
 
 let solvePart2 (filePath: string) (delimiter: string) =
