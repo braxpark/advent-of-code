@@ -22,11 +22,11 @@ int main() {
     ifstream inInput2("../input.txt");
     ifstream& part2Data = inInput2;
     int64_t diff = 0;
+    bool enabled = true;
     while(getline(part2Data, line)) {
         std::regex pattern(R"((?:mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)))");
         auto begin = std::sregex_iterator(line.begin(), line.end(), pattern);
         auto end = std::sregex_iterator();
-        bool enabled = true;
         for(auto it = begin; it != end; ++it) {
             if(it->str() == "don't()")  {
                 enabled = false;
